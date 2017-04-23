@@ -1,0 +1,8 @@
+{
+  "globalDependencies": {
+    "jest": "registry:dt/jest#19.2.0+20170312200138"
+  },
+  "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20161015015725"
+  }
+}

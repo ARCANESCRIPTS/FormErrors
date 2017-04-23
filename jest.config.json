@@ -1,0 +1,9 @@
+{
+  "verbose": true,
+  "collectCoverage": true,
+  "collectCoverageFrom" : [
+    "**/dist/FormErrors.js"
+  ],
+  "coverageDirectory": "./coverage",
+  "coverageReporters": ["json", "lcov", "text"]
+}

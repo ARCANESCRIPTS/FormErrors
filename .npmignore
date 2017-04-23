@@ -1,0 +1,14 @@
+# Editor, IDE
+.idea/
+.vscode/
+
+# Build files and directories
+_arcanedev/
+_docs/
+.github/
+coverage/
+test/
+node_modules/
+.editorconfig
+.travis.yml
+yarn.lock
