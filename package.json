@@ -1,5 +1,5 @@
 {
-  "name": "form-errors",
+  "name": "laravel-form-errors",
   "version": "1.0.0",
   "description": "Form errors helper for laravel validation errors",
   "author": "ARCANEDEV",
