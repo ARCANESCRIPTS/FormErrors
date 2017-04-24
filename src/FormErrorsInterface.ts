@@ -5,9 +5,16 @@ interface FormErrorsInterface {
     /**
      * Get the raw messages.
      *
-     * @returns {any}
+     * @return {any}
      */
     getMessages(): any;
+
+    /**
+     * Set the raw messages.
+     *
+     * @param  {any}  messages
+     */
+    setMessages(messages: any): void;
 
     /**
      * Get the default message format.
@@ -46,7 +53,7 @@ interface FormErrorsInterface {
      *
      * @param  {string|string[]}  key
      *
-     * @returns {boolean}
+     * @return {boolean}
      */
     has(key?: string|string[]): boolean;
 
@@ -75,7 +82,7 @@ interface FormErrorsInterface {
      * @param  {string}  key
      * @param  {string}  format
      *
-     * @returns {any}
+     * @return {any}
      */
     get(key: string, format?: string): any[];
 
@@ -87,6 +94,11 @@ interface FormErrorsInterface {
      * @return {any}
      */
     all(format?: string): any;
+
+    /**
+     * Reset all the validation messages.
+     */
+    reset(): void;
 
     /**
      * Determine if the message bag has any messages.
@@ -105,7 +117,7 @@ interface FormErrorsInterface {
     /**
      * Get the number of messages.
      *
-     * @returns {number}
+     * @return {number}
      */
     count(): number;
 }

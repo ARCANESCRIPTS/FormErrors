@@ -16,7 +16,7 @@ class FormErrors implements FormErrorsInterface {
      * @param  {any}  messages
      */
     public constructor(messages: any = {}) {
-        this.messages = messages;
+        this.setMessages(messages);
     }
 
     // Getters & Setters //
@@ -24,10 +24,19 @@ class FormErrors implements FormErrorsInterface {
     /**
      * Get the raw messages.
      *
-     * @returns {any}
+     * @return {any}
      */
     public getMessages(): any {
         return this.messages;
+    }
+
+    /**
+     * Set the raw messages.
+     *
+     * @param messages
+     */
+    public setMessages(messages: any): void {
+        return this.messages = messages;
     }
 
     /**
@@ -58,7 +67,9 @@ class FormErrors implements FormErrorsInterface {
      * @return {void}
      */
     public merge(messages: any): void {
-        this.messages = _.mergeWith(this.messages, messages);
+        this.setMessages(
+            _.mergeWith(this.messages, messages)
+        );
     }
 
     /**
@@ -75,7 +86,7 @@ class FormErrors implements FormErrorsInterface {
      *
      * @param  {string|string[]}  key
      *
-     * @returns {boolean}
+     * @return {boolean}
      */
     public has(key?: string|string[]): boolean {
         if (key) {
@@ -120,7 +131,7 @@ class FormErrors implements FormErrorsInterface {
      * @param  {string}  key
      * @param  {string}  format
      *
-     * @returns {any}
+     * @return {any}
      */
     public get(key: string, format?: string): any {
         if ( ! this.has(key)) return [];
@@ -152,6 +163,13 @@ class FormErrors implements FormErrorsInterface {
     }
 
     /**
+     * Reset all the validation messages.
+     */
+    public reset(): void {
+        this.setMessages({});
+    }
+
+    /**
      * Determine if the message bag has any messages.
      *
      * @return {boolean}
@@ -172,7 +190,7 @@ class FormErrors implements FormErrorsInterface {
     /**
      * Get the number of messages.
      *
-     * @returns {number}
+     * @return {number}
      */
     public count(): number {
         return this.keys().length;
@@ -198,7 +216,7 @@ class FormErrors implements FormErrorsInterface {
      * @param  {string}    format
      * @param  {string}    key
      *
-     * @returns {string[]}
+     * @return {string[]}
      */
     private transform(messages, format, key) {
         return _.transform(messages, function(result, message) {
@@ -210,4 +228,4 @@ class FormErrors implements FormErrorsInterface {
     }
 }
 
-export { FormErrors as default};
+export default FormErrors;

@@ -10,6 +10,18 @@ const messages = {
     ]
 };
 
+describe('#getMessages() & #setMessage()', () => {
+    it('Can get and set validation messages', () => {
+        let errors = new FormErrors;
+
+        expect(errors.getMessages()).toEqual({});
+
+        errors.setMessages(messages);
+
+        expect(errors.getMessages()).toEqual(messages);
+    });
+});
+
 describe('#getFormat() & #setFormat()', () => {
     it('Can get and set the format', () => {
         let errors = new FormErrors;
@@ -309,5 +321,19 @@ describe('#merge()', () => {
         expect(errors.get('name')).toEqual([
             'The custom Name field is required.'
         ]);
+    });
+});
+
+describe('#reset()', () => {
+    it('Can reset all the validation messages', () => {
+        let errors = new FormErrors;
+
+        errors.setMessages(messages);
+
+        expect(errors.isEmpty()).toBe(false);
+
+        errors.reset();
+
+        expect(errors.isEmpty()).toBe(true);
     });
 });
