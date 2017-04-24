@@ -35,7 +35,7 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 [link_npm]:          https://www.npmjs.com/package/laravel-form-errors
 [link_issues]:       https://github.com/ARCANESCRIPTS/FormErrors/issues
 [link_author]:       https://github.com/arcanedev-maroc
-[link_contributors]: https://github.com/ARCANEDEV/Support/graphs/contributors
+[link_contributors]: https://github.com/ARCANESCRIPTS/FormErrors/graphs/contributors
 [link_releases]:     https://github.com/ARCANESCRIPTS/FormErrors/releases
 [link_contributing]: https://github.com/ARCANESCRIPTS/FormErrors/blob/master/CONTRIBUTING.md
 
