@@ -60,6 +60,23 @@ class FormErrors implements FormErrorsInterface {
     // Main Method //
 
     /**
+     * Add a message to the collection.
+     *
+     * @param  {string}  key
+     * @param  {string}  message
+     *
+     * @return void
+     */
+    add(key: string, message: string): void {
+        if (this.isUnique(key, message)) {
+            if (this.messages[key])
+                this.messages[key].push(message);
+            else
+                this.messages[key] = [message];
+        }
+    }
+
+    /**
      * Merge a new array of messages into the collection.
      *
      * @param  {any}  messages
@@ -233,7 +250,7 @@ class FormErrors implements FormErrorsInterface {
      *
      * @return {string[]}
      */
-    private transform(messages, format: string, key) {
+    private transform(messages: string[], format: string, key: string) {
         format = this.checkFormat(format);
 
         return _.transform(messages, function(result, message) {
@@ -265,6 +282,22 @@ class FormErrors implements FormErrorsInterface {
         }
 
         return transformed;
+    }
+
+    /**
+     * Determine if a key and message combination already exists.
+     *
+     * @param  {string}  key
+     * @param  {string}  message
+     *
+     * @return boolean
+     */
+    private isUnique(key: string, message: string): boolean {
+        if (this.messages[key]) {
+            return ! this.messages[key].includes(message);
+        }
+
+        return true;
     }
 }
 
