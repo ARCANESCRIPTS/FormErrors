@@ -1,12 +1,19 @@
-import FormErrors from "../dist/FormErrors";
+import FormErrors from '../dist/FormErrors';
 
 const messages = {
-    "name": [
-        "The Name field is required."
+    'name': [
+        'The Name field is required.'
     ],
-    "age": [
-        "The Age must be an integer.",
-        "The Age must be at least 100 years old."
+    'age': [
+        'The Age must be an integer.',
+        'The Age must be at least 100 years old.'
+    ],
+    'numbers.0': [
+        'The numbers.0 is required.',
+        'The numbers.0 must be an integer.'
+    ],
+    'numbers.5': [
+        "The numbers.5 must be an integer."
     ]
 };
 
@@ -66,6 +73,19 @@ describe('#has()', () => {
         expect(errors.has(['age', 'email'])).toBe(false);
         expect(errors.has(['email', 'name'])).toBe(false);
     });
+
+    it('Can check has validation messages for an array input', () => {
+        let errors = new FormErrors(messages);
+
+        expect(errors.has('numbers.*')).toBe(true);
+        expect(errors.has('numbers.0')).toBe(true);
+        expect(errors.has('numbers.5')).toBe(true);
+
+        expect(errors.has('numbers.1')).toBe(false);
+        expect(errors.has('numbers.6')).toBe(false);
+        expect(errors.has('numbers.one')).toBe(false);
+        expect(errors.has('emails.*')).toBe(false);
+    });
 });
 
 describe('#hasAny()', () => {
@@ -113,10 +133,43 @@ describe('#first()', () => {
         expect(errors.first('age', format)).toBe('age => The Age must be an integer.');
         expect(errors.first('email', format)).toBe('');
     });
+
+    it('Can get first validation message with wildcards', () => {
+        let errors = new FormErrors(messages);
+
+        expect(errors.first('numbers.*')).toEqual('The numbers.0 is required.');
+        expect(errors.first('numbers.0')).toEqual('The numbers.0 is required.');
+        expect(errors.first('numbers.5')).toEqual('The numbers.5 must be an integer.');
+
+        expect(errors.first('numbers.1')).toEqual('');
+        expect(errors.first('numbers.6')).toEqual('');
+    });
+
+    it('Can get first validation message with wildcards + format', () => {
+        let errors = new FormErrors(messages);
+
+        let format = '<span class="label label-danger">:message</span>'
+
+        expect(errors.first('numbers.*', format)).toEqual('<span class="label label-danger">The numbers.0 is required.</span>');
+        expect(errors.first('numbers.0', format)).toEqual('<span class="label label-danger">The numbers.0 is required.</span>');
+        expect(errors.first('numbers.5', format)).toEqual('<span class="label label-danger">The numbers.5 must be an integer.</span>');
+
+        expect(errors.first('numbers.1', format)).toEqual('');
+        expect(errors.first('numbers.6', format)).toEqual('');
+
+        format = ':key => :message'
+
+        expect(errors.first('numbers.*', format)).toEqual('numbers.0 => The numbers.0 is required.');
+        expect(errors.first('numbers.0', format)).toEqual('numbers.0 => The numbers.0 is required.');
+        expect(errors.first('numbers.5', format)).toEqual('numbers.5 => The numbers.5 must be an integer.');
+
+        expect(errors.first('numbers.1', format)).toEqual('');
+        expect(errors.first('numbers.6', format)).toEqual('');
+    });
 });
 
 describe('#get()', () => {
-    it('Can get a all the validation messages for the given key', () => {
+    it('Can get all the validation messages for the given key', () => {
         let errors = new FormErrors(messages);
 
         expect(errors.get('name')).toEqual([
@@ -131,7 +184,7 @@ describe('#get()', () => {
         expect(errors.get('email')).toEqual([]);
     });
 
-    it('Can get a all the validation messages for the given key with format', () => {
+    it('Can get all the validation messages for the given key with format', () => {
         let errors = new FormErrors(messages);
 
         // Format with :message
@@ -162,6 +215,78 @@ describe('#get()', () => {
 
         expect(errors.get('email', format)).toEqual([]);
     });
+
+    it('Can get all the validation messages with wildcards', () => {
+        let errors = new FormErrors(messages);
+
+        expect(errors.get('numbers.*')).toEqual({
+            'numbers.0': [
+                'The numbers.0 is required.',
+                'The numbers.0 must be an integer.'
+            ],
+            'numbers.5': [
+                'The numbers.5 must be an integer.'
+            ]
+        });
+        expect(errors.get('numbers.0')).toEqual([
+            'The numbers.0 is required.',
+            'The numbers.0 must be an integer.'
+        ]);
+        expect(errors.get('numbers.5')).toEqual([
+            'The numbers.5 must be an integer.'
+        ]);
+
+        expect(errors.get('numbers.1')).toEqual([]);
+        expect(errors.get('numbers.6')).toEqual([]);
+    });
+
+    it('Can get first validation message with wildcards + format', () => {
+        let errors = new FormErrors(messages);
+
+        let format = '<span class="label label-danger">:message</span>'
+
+        expect(errors.get('numbers.*', format)).toEqual({
+            'numbers.0': [
+                '<span class="label label-danger">The numbers.0 is required.</span>',
+                '<span class="label label-danger">The numbers.0 must be an integer.</span>'
+            ],
+            'numbers.5': [
+                '<span class="label label-danger">The numbers.5 must be an integer.</span>'
+            ]
+        });
+        expect(errors.get('numbers.0', format)).toEqual([
+            '<span class="label label-danger">The numbers.0 is required.</span>',
+            '<span class="label label-danger">The numbers.0 must be an integer.</span>'
+        ]);
+        expect(errors.get('numbers.5', format)).toEqual([
+            '<span class="label label-danger">The numbers.5 must be an integer.</span>'
+        ]);
+
+        expect(errors.get('numbers.1', format)).toEqual([]);
+        expect(errors.get('numbers.6', format)).toEqual([]);
+
+        format = ':key => :message'
+
+        expect(errors.get('numbers.*', format)).toEqual({
+            'numbers.0': [
+                'numbers.0 => The numbers.0 is required.',
+                'numbers.0 => The numbers.0 must be an integer.'
+            ],
+            'numbers.5': [
+                'numbers.5 => The numbers.5 must be an integer.'
+            ]
+        });
+        expect(errors.get('numbers.0', format)).toEqual([
+            'numbers.0 => The numbers.0 is required.',
+            'numbers.0 => The numbers.0 must be an integer.'
+        ]);
+        expect(errors.get('numbers.5', format)).toEqual([
+            'numbers.5 => The numbers.5 must be an integer.'
+        ]);
+
+        expect(errors.get('numbers.1', format)).toEqual([]);
+        expect(errors.get('numbers.6', format)).toEqual([]);
+    });
 });
 
 describe('#all()', () => {
@@ -173,12 +298,18 @@ describe('#all()', () => {
         errors = new FormErrors(messages);
 
         expect(errors.all()).toEqual({
-            "name": [
+            'name': [
                 'The Name field is required.'
             ],
-            "age": [
+            'age': [
                 'The Age must be an integer.',
                 'The Age must be at least 100 years old.'
+            ],
+            'numbers.0': [
+                'The numbers.0 is required.',
+                'The numbers.0 must be an integer.'],
+            'numbers.5': [
+                'The numbers.5 must be an integer.'
             ]
         });
     });
@@ -193,9 +324,16 @@ describe('#all()', () => {
             "name": [
                 '<span class="label label-danger">The Name field is required.</span>'
             ],
-            "age": [
+            'age': [
                 '<span class="label label-danger">The Age must be an integer.</span>',
                 '<span class="label label-danger">The Age must be at least 100 years old.</span>'
+            ],
+            'numbers.0': [
+                '<span class="label label-danger">The numbers.0 is required.</span>',
+                '<span class="label label-danger">The numbers.0 must be an integer.</span>'
+            ],
+            'numbers.5': [
+                '<span class="label label-danger">The numbers.5 must be an integer.</span>'
             ]
         });
 
@@ -203,12 +341,19 @@ describe('#all()', () => {
         format = ':key => :message';
 
         expect(errors.all(format)).toEqual({
-            "name": [
+            'name': [
                 'name => The Name field is required.'
             ],
-            "age": [
+            'age': [
                 'age => The Age must be an integer.',
                 'age => The Age must be at least 100 years old.'
+            ],
+            'numbers.0': [
+                'numbers.0 => The numbers.0 is required.',
+                'numbers.0 => The numbers.0 must be an integer.'
+            ],
+            'numbers.5': [
+                'numbers.5 => The numbers.5 must be an integer.'
             ]
         });
     });
@@ -235,7 +380,7 @@ describe('#any() & #empty()', () => {
         expect(errors.get('name')).toEqual([]);
 
         errors.merge({
-            "name": [
+            'name': [
                 'The Name field is required.'
             ]
         });
@@ -247,7 +392,7 @@ describe('#any() & #empty()', () => {
         ]);
 
         errors.merge({
-            "name": [
+            'name': [
                 'The custom Name field is required.'
             ]
         });
@@ -264,7 +409,7 @@ describe('#count()', () => {
     it('Can get the messages count', () => {
         let errors = new FormErrors(messages);
 
-        expect(errors.count()).toBe(2);
+        expect(errors.count()).toBe(4);
     });
 });
 
@@ -272,22 +417,22 @@ describe('#merge()', () => {
     it('Can merge messages with a custom one', () => {
         let errors = new FormErrors(messages);
 
-        expect(errors.count()).toEqual(2);
+        expect(errors.count()).toEqual(4);
         expect(errors.has('email')).toBe(false);
         expect(errors.get('email')).toEqual([]);
 
         errors.merge({
-            "email": [
-                "The Email field is required.",
-                "The Email field must be a valid email."
+            'email': [
+                'The Email field is required.',
+                'The Email field must be a valid email.'
             ]
         });
 
-        expect(errors.count()).toEqual(3);
+        expect(errors.count()).toEqual(5);
         expect(errors.has('email')).toBe(true);
         expect(errors.get('email')).toEqual([
-            "The Email field is required.",
-            "The Email field must be a valid email."
+            'The Email field is required.',
+            'The Email field must be a valid email.'
         ]);
     });
 
@@ -299,7 +444,7 @@ describe('#merge()', () => {
         expect(errors.get('name')).toEqual([]);
 
         errors.merge({
-            "name": [
+            'name': [
                 'The Name field is required.'
             ]
         });
@@ -311,7 +456,7 @@ describe('#merge()', () => {
         ]);
 
         errors.merge({
-            "name": [
+            'name': [
                 'The custom Name field is required.'
             ]
         });
