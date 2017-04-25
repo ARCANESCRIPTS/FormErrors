@@ -1,5 +1,7 @@
 # FormErrors [![License][badge_license]][link_license] [![NPM][badge_npm]][link_npm]
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1f8cfab7d8d149e3b3d4f278e34d8e7d)](https://www.codacy.com/app/ARCANESCRIPTS/FormErrors?utm_source=github.com&utm_medium=referral&utm_content=ARCANESCRIPTS/FormErrors&utm_campaign=badger)
+
 [![Travis Build][badge_build]][link_build]
 [![Codacy grade][badge_grade]][link_grade]
 [![Code Coverage][badge_coverage]][link_coverage]
