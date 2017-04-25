@@ -1,0 +1,7 @@
+exclude_paths:
+  - test/**/*
+  - typings/**/*
+  - '*.config.js'
+  - 'package.json'
+  - 'tsconfig.json'
+  - 'typings.json'
