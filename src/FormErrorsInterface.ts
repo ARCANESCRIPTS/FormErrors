@@ -33,6 +33,16 @@ interface FormErrorsInterface {
     // Main Methods //
 
     /**
+     * Add a message to the collection.
+     *
+     * @param  {string}  key
+     * @param  {string}  message
+     *
+     * @return void
+     */
+    add(key: string, message: string): void;
+
+    /**
      * Merge a new array of messages into the collection.
      *
      * @param  {any}  messages

@@ -482,3 +482,60 @@ describe('#reset()', () => {
         expect(errors.isEmpty()).toBe(true);
     });
 });
+
+describe('#add()', () => {
+    it('Can add message to the collection', () => {
+        let errors = new FormErrors;
+
+        expect(errors.count()).toEqual(0);
+
+        errors.add('name', 'The name is required.');
+
+        expect(errors.count()).toEqual(1);
+
+        errors.add('name', 'The name must be an alpha-numeric.');
+
+        expect(errors.count()).toEqual(1);
+
+        errors.add('email', 'The email is required.');
+
+        expect(errors.count()).toEqual(2);
+
+        expect(errors.getMessages()).toEqual({
+            'email': [
+                'The email is required.'
+            ],
+            'name': [
+                'The name is required.',
+                'The name must be an alpha-numeric.'
+            ]
+        });
+    });
+
+    it('Can only add unique messages to the collection', () => {
+        let errors = new FormErrors;
+
+        expect(errors.count()).toEqual(0);
+
+        errors.add('name', 'The name is required.');
+
+        expect(errors.count()).toEqual(1);
+
+        errors.add('name', 'The name must be an alpha-numeric.');
+
+        expect(errors.count()).toEqual(1);
+
+        errors.add('name', 'The name is required.');
+
+        expect(errors.count()).toEqual(1);
+
+        errors.add('name', 'The name must be an alpha-numeric.');
+
+        expect(errors.getMessages()).toEqual({
+            'name': [
+                'The name is required.',
+                'The name must be an alpha-numeric.'
+            ]
+        });
+    });
+});
