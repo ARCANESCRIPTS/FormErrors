@@ -9,7 +9,6 @@ export default {
         typescript(),
         babel({
             "babelrc": false,
-            "include": "src/**",
             "exclude": "node_modules/**",
             "presets": ["es2015-rollup", "stage-2"],
             "plugins": ["transform-object-assign"],

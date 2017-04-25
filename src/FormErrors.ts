@@ -33,7 +33,7 @@ class FormErrors implements FormErrorsInterface {
     /**
      * Set the raw messages.
      *
-     * @param messages
+     * @param  {any}  messages
      */
     public setMessages(messages: any): void {
         return this.messages = messages;
@@ -68,7 +68,7 @@ class FormErrors implements FormErrorsInterface {
      */
     public merge(messages: any): void {
         this.setMessages(
-            _.mergeWith(this.messages, messages)
+            _.merge(this.getMessages(), messages)
         );
     }
 
@@ -90,9 +90,13 @@ class FormErrors implements FormErrorsInterface {
      */
     public has(key?: string|string[]): boolean {
         if (key) {
-            return _.isArray(key)
-                ? _.difference(this.keys(), key).length === 0
-                : _.has(this.getMessages(), key);
+            let keys = _.isArray(key) ? key : [key];
+
+            for (let index in keys) {
+                if (this.first(keys[index]) === '') return false;
+            }
+
+            return true;
         }
 
         return this.any();
@@ -122,7 +126,16 @@ class FormErrors implements FormErrorsInterface {
      * @return {string}
      */
     public first(key: string, format?: string): string {
-        return this.has(key) ? _.head(this.get(key, format)) : '';
+        let messages = (key) ? this.get(key, format) : this.all(format);
+
+        let firstMessage: any;
+
+        if (_.isObject(messages))
+            firstMessage = messages[Object.keys(messages)[0]];
+
+        return _.isString(firstMessage)
+            ? firstMessage
+            : (_.isArray(firstMessage) ? _.head(firstMessage) || '' : '');
     }
 
     /**
@@ -134,11 +147,15 @@ class FormErrors implements FormErrorsInterface {
      * @return {any}
      */
     public get(key: string, format?: string): any {
-        if ( ! this.has(key)) return [];
+        if (_.has(this.getMessages(), key)) {
+            let message = _.get(this.getMessages(), key, []);
 
-        let messages = _.get(this.getMessages(), key, []);
+            return this.transform(message, format, key)
+        }
 
-        return this.transform(messages, this.checkFormat(format), key);
+        return key.includes('*')
+            ? this.getMessagesForWildcardKey(key, format)
+            : [];
     }
 
     /**
@@ -152,8 +169,6 @@ class FormErrors implements FormErrorsInterface {
         let all = {};
 
         if (this.any()) {
-            format = this.checkFormat(format);
-
             _.forEach(this.keys(), (key) => {
                 all[key] = this.get(key, format);
             });
@@ -218,13 +233,38 @@ class FormErrors implements FormErrorsInterface {
      *
      * @return {string[]}
      */
-    private transform(messages, format, key) {
+    private transform(messages, format: string, key) {
+        format = this.checkFormat(format);
+
         return _.transform(messages, function(result, message) {
             result.push(
                 format.replace(new RegExp(':message', 'g'), message)
                       .replace(new RegExp(':key', 'g'), key)
             );
-        })
+        });
+    }
+
+    /**
+     * Get the messages for a wildcard key.
+     *
+     * @param  string  key
+     * @param  string  format
+     *
+     * @return {string[]}
+     */
+    private getMessagesForWildcardKey(key: string, format: string) {
+        let regex    = new RegExp(`^${key}$`);
+        let messages = _.pickBy(this.getMessages(), function(m, k) {
+            return regex.test(k);
+        });
+
+        let transformed = {};
+
+        for (let k in messages) {
+            transformed[k] = this.transform(messages[k], format, k);
+        }
+
+        return transformed;
     }
 }
 
