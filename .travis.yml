@@ -1,11 +1,12 @@
 language: node_js
 
-node_js:
-  - "node"
+node_js: "node"
 
 script:
   - npm run build
   - npm run test-cc
 
 after_success: 
-  - npm run coveralls
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage
+  - rm -rf ./coverage
