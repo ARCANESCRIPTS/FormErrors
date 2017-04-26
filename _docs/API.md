@@ -21,7 +21,7 @@ This is all the methods you can call after you've initiated your errors class.
   * [isEmpty](#isEmpty)
   * [count](#count)
 
-### getMessages()
+### getMessages
 
 ```js
 /**
@@ -32,7 +32,7 @@ This is all the methods you can call after you've initiated your errors class.
 getMessages(): any;
 ```
 
-### setMessages(messages)
+### setMessages
 
 ```js
 /**
@@ -43,7 +43,7 @@ getMessages(): any;
 setMessages(messages: any): void;
 ```
 
-### getFormat()
+### getFormat
 
 ```js
 /**
@@ -54,7 +54,7 @@ setMessages(messages: any): void;
 getFormat(): string;
 ```
 
-### setFormat(format)
+### setFormat
 
 ```js
 /**
@@ -65,7 +65,7 @@ getFormat(): string;
 setFormat(format: string): void;
 ```
 
-### add(key, message)
+### add
 
 ```js
 /**
@@ -79,7 +79,7 @@ setFormat(format: string): void;
 add(key: string, message: string): void;
 ```
 
-### merge(messages)
+### merge
 
 ```js
 /**
@@ -92,7 +92,7 @@ add(key: string, message: string): void;
 merge(messages: any): void;
 ```
 
-### keys()
+### keys
 
 ```js
 /**
@@ -103,7 +103,7 @@ merge(messages: any): void;
 keys(): string[];
 ```
 
-### has(key)
+### has
 
 ```js
 /**
@@ -116,7 +116,7 @@ keys(): string[];
 has(key?: string|string[]): boolean;
 ```
 
-### hasAny(key)
+### hasAny
 
 ```js
 /**
@@ -129,7 +129,7 @@ has(key?: string|string[]): boolean;
 hasAny(keys: string[]): boolean;
 ```
 
-### first(key, format)
+### first
 
 ```js
 /**
@@ -143,7 +143,7 @@ hasAny(keys: string[]): boolean;
 first(key: string, format?: string): string;
 ```
 
-### get(key, format)
+### get
 
 ```js
 /**
@@ -157,7 +157,7 @@ first(key: string, format?: string): string;
 get(key: string, format?: string): any[];
 ```
 
-### all(format)
+### all
 
 ```js
 /**
@@ -170,7 +170,7 @@ get(key: string, format?: string): any[];
 all(format?: string): any;
 ```
 
-### reset()
+### reset
 
 ```js
 /**
@@ -179,7 +179,7 @@ all(format?: string): any;
 reset(): void;
 ```
 
-### any()
+### any
 
 ```js
 /**
@@ -190,7 +190,7 @@ reset(): void;
 any(): boolean;
 ```
 
-### isEmpty()
+### isEmpty
 
 ```js
 /**
@@ -201,7 +201,7 @@ any(): boolean;
 isEmpty(): boolean;
 ```
 
-### count()
+### count
 
 ```js
 /**

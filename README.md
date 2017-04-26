@@ -29,11 +29,11 @@ yarn add laravel-form-errors
 
 ## Usage
 
-You can start by checking all the available methods on [API](https://github.com/ARCANESCRIPTS/FormErrors/_docs/API.md) document.
+You can start by checking all the available methods on [API](https://github.com/ARCANESCRIPTS/FormErrors/blob/master/_docs/API.md) document.
 
 If you're familiar with the [Laravel's validation errors](https://laravel.com/docs/5.4/validation#working-with-error-messages), this is going to be a 🍰 for you.
 
-You can also find an [example with Laravel + Vue.js + Axios](https://github.com/ARCANESCRIPTS/FormErrors/_docs/examples/with-laravel-vuejs-axios.md) setup.
+You can also find an [example with Laravel + Vue.js + Axios](https://github.com/ARCANESCRIPTS/FormErrors/blob/master/_docs/examples/with-laravel-vuejs-axios.md) setup.
 
 ## Contribution
 
