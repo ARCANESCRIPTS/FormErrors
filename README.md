@@ -15,172 +15,25 @@ Feel free to check out the [releases][link_releases], [license][link_license], a
 
 ## Installation
 
-> Coming soon...
+You can install the package via the `npm` command:
+
+```bash
+npm install laravel-form-errors --save
+```
+
+With `yarn`:
+
+```bash
+yarn add laravel-form-errors
+```
 
 ## Usage
 
-> Coming soon...
+You can start by checking all the available methods on [API](https://github.com/ARCANESCRIPTS/FormErrors/_docs/API.md) document.
 
-### API
+If you're familiar with the [Laravel's validation errors](https://laravel.com/docs/5.4/validation#working-with-error-messages), this is going to be a 🍰 for you.
 
-```js
-/**
- * Get the raw messages.
- *
- * @return {any}
- */
-getMessages(): any;
-```
-
-```js
-/**
- * Set the raw messages.
- *
- * @param  {any}  messages
- */
-setMessages(messages: any): void;
-```
-
-```js
-/**
- * Get the default message format.
- *
- * @return {string}
- */
-getFormat(): string;
-```
-
-```js
-/**
- * Set the default message format.
- *
- * @param  {string}  format
- */
-setFormat(format:string): void;
-```
-
-```js
-/**
- * Add a message to the collection.
- *
- * @param  {string}  key
- * @param  {string}  message
- *
- * @return void
- */
-add(key: string, message: string): void;
-```
-
-```js
-/**
- * Merge a new array of messages into the collection.
- *
- * @param  {any}  messages
- *
- * @return {void}
- */
-merge(messages: any): void;
-```
-
-```js
-/**
- * Get the keys present in the message bag.
- *
- * @return {string[]}
- */
-keys(): string[];
-```
-
-```js
-/**
- * Determine if messages exist for all of the given keys.
- *
- * @param  {string|string[]}  key
- *
- * @return {boolean}
- */
-has(key?: string|string[]): boolean;
-```
-
-```js
-/**
- * Determine if messages exist for any of the given keys.
- *
- * @param  {string[]}  keys
- *
- * @return {boolean}
- */
-hasAny(keys: string[]): boolean;
-```
-
-```js
-/**
- * Get the first message from the bag for a given key.
- *
- * @param  {string}       key
- * @param  {string|null}  format
- *
- * @return {string}
- */
-first(key: string, format?: string): string;
-```
-
-```js
-/**
- * Get all of the messages from the bag for a given key.
- *
- * @param  {string}  key
- * @param  {string}  format
- *
- * @return {any}
- */
-get(key: string, format?: string): any[];
-```
-
-```js
-/**
- * Get all of the messages for every key in the bag.
- *
- * @param  {string|null}  format
- *
- * @return {any}
- */
-all(format?: string): any;
-```
-
-```js
-/**
- * Reset all the validation messages.
- */
-reset(): void;
-```
-
-```js
-/**
- * Determine if the message bag has any messages.
- *
- * @return bool
- */
-any(): boolean;
-```
-
-```js
-/**
- * Determine if the message bag has any messages.
- *
- * @return {bool}
- */
-isEmpty(): boolean;
-```
-
-```js
-/**
- * Get the number of messages.
- *
- * @return {number}
- */
-count(): number;
-```
+You can also find an [example with Laravel + Vue.js + Axios](https://github.com/ARCANESCRIPTS/FormErrors/_docs/examples/with-laravel-vuejs-axios.md) setup.
 
 ## Contribution
 
