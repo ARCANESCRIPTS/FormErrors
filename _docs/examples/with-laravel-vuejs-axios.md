@@ -31,7 +31,7 @@ Route::post('form', function (\Illuminate\Http\Request $request) {
 
 Now we're going to create our `Vue.js` component to handle the login form:
 
-```vuejs
+```vue
 <script>
     import FormErrors from 'laravel-form-errors';
 

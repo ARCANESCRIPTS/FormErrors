@@ -4,21 +4,21 @@ This is all the methods you can call after you've initiated your errors class.
 
 ## Table of Contents
 
-  * [getMessages](#getMessages)
-  * [setMessages](#setMessages)
-  * [getFormat](#getFormat)
-  * [setFormat](#setFormat)
+  * [getMessages](#getmessages)
+  * [setMessages](#setmessages)
+  * [getFormat](#getformat)
+  * [setFormat](#setformat)
   * [add](#add)
   * [merge](#merge)
   * [keys](#keys)
   * [has](#has)
-  * [hasAny](#hasAny)
+  * [hasAny](#hasany)
   * [first](#first)
   * [get](#get)
   * [all](#all)
   * [reset](#reset)
   * [any](#any)
-  * [isEmpty](#isEmpty)
+  * [isEmpty](#isempty)
   * [count](#count)
 
 ### getMessages
