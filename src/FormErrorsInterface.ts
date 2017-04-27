@@ -28,7 +28,7 @@ interface FormErrorsInterface {
      *
      * @param  {string}  format
      */
-    setFormat(format:string): void;
+    setFormat(format: string): void;
 
     // Main Methods //
 

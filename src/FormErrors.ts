@@ -5,7 +5,8 @@ import FormErrorsInterface from './FormErrorsInterface';
 class FormErrors implements FormErrorsInterface {
     // Properties //
 
-    protected messages:any  = {};
+    protected messages:any = {};
+
     protected format:string = ':message';
 
     // Constructor //
@@ -53,7 +54,7 @@ class FormErrors implements FormErrorsInterface {
      *
      * @param  {string}  format
      */
-    public setFormat(format:string): void {
+    public setFormat(format: string): void {
         this.format = format;
     }
 
